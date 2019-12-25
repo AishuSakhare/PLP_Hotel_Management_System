@@ -1,0 +1,6 @@
+package com.capgemini.hotelmanagementsystem.bean;
+
+public class HotelInformation {
+
+	
+}// end of class

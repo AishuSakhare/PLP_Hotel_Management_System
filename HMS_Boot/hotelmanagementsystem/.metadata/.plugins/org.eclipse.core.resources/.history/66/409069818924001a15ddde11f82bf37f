@@ -1,0 +1,12 @@
+package com.capgemini.hotelmanagementsystem.dao;
+
+import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
+
+public interface HotelInformationDao {
+
+	public HotelInformationBean addHotelInformation(HotelInformationBean hotelInformationBean);
+
+	public boolean checkHotelLienceNumber(String hotelLicenceNumber);
+
+	public HotelInformationBean updateHotelInformation(HotelInformationBean hotelInformationBean);
+}// end of interface

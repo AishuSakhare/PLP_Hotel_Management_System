@@ -1,0 +1,7 @@
+package com.capgemini.hotelmanagementsystem.validation;
+
+public interface ValidationDao {
+	public boolean emailValidation(String email);
+	
+	public boolean passwordValidation(String password);
+}// end of interface

@@ -1,0 +1,14 @@
+package com.capgemini.hotelmanagementsystem.service;
+
+import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
+
+public interface HotelInformationService {
+
+	public HotelInformationBean addHotelInformation(HotelInformationBean hotelInformationBean);
+
+	public boolean checkHotelLienceNumber(String hotelLicenceNumber);
+
+	public HotelInformationBean updateHotelInformation(HotelInformationBean hotelInformationBean);
+	
+	public boolean deleteHotelInformation(int HotelId);
+}// end of interface

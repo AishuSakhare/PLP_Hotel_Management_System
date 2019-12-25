@@ -15,10 +15,8 @@
 <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
 <fullyQualifiedTypeName name="java.util.regex.Matcher"/>
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.dao.EmployeeOperationDao"/>
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.service.EmployeeOperationService"/>
-<fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.bean.HotelInformationBean"/>
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.service.AdminOperationService"/>
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.bean.RoomInformationBean"/>
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.bean.BookingInformationBean"/>
@@ -31,4 +29,7 @@
 <fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="com.capgemini.hotelmanagementsystem.bean.HotelInformationBean"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
 </qualifiedTypeNameHistroy>

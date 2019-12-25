@@ -42,10 +42,10 @@ public class BookingInformationBean {
 	@Column
 	private String hotelName;
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date checkInDate;
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-dd-MM")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date checkOutDate;
 
 	public Date getCheckInDate() {

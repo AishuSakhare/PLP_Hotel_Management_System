@@ -285,7 +285,7 @@ public class AdminOperationDaoImpl implements AdminOperationDao {
 		employeeInformation.setContactNumber(employeeBean.getContactNumber());
 		employeeInformation.setNationality(employeeBean.getNationality());
 		employeeInformation.setAddress(employeeBean.getAddress());
-		employeeInformation.setType("employee");
+		employeeInformation.setType("Employee");
 		try {
 			transaction.begin();
 			entityManager.persist(employeeInformation);

@@ -1,5 +1,7 @@
 package com.capgemini.hotelmanagementsystem.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +19,9 @@ public class UserOperationServiceImpl implements UserOperationService {
 	@Autowired
 	private UserOperationDao userOperationDao;
 
-	
 	@Override
-	public HotelInformationBean hotelList() {
-		return userOperationDao.hotelList();
-	}
-
-	@Override
-	public RoomInformationBean roomList(String licenceNumber) {
-		return userOperationDao.roomList(licenceNumber);
+	public List<RoomInformationBean> roomList(HotelInformationBean hotelInformationBean) {
+		return userOperationDao.roomList(hotelInformationBean);
 	}
 
 	@Override

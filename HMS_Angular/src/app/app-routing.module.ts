@@ -18,6 +18,7 @@ import { AdminAddEmployeeComponent } from './admin-add-employee/admin-add-employ
 import { EmployeeRoomListComponent } from './employee-room-list/employee-room-list.component';
 import { EmployeeUserRoomBookingComponent } from './employee-user-room-booking/employee-user-room-booking.component';
 import { UserRoomListComponent } from './user-room-list/user-room-list.component';
+import { UserRoomBookingComponent } from './user-room-booking/user-room-booking.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,13 @@ const routes: Routes = [
       {
         path: 'user-room-list',
         component: UserRoomListComponent,
+        canActivate: [AuthGuard], data: {
+          expectedRole: ['User']
+        }
+      },
+      {
+        path: 'user-room-booking',
+        component: UserRoomBookingComponent,
         canActivate: [AuthGuard], data: {
           expectedRole: ['User']
         }

@@ -18,6 +18,7 @@
       <a mat-list-item *ngIf='isAdmin() || isUser() || isEmployee()' routerLink="./admin-profile">Profile</a>
 
       <a mat-list-item *ngIf='isUser() ' routerLink="./user-hotel-list">User Hotel List</a>
+      <!-- <a mat-list-item *ngIf='isUser() ' routerLink="./user-room-list"></a> -->
       <a mat-list-item *ngIf='isEmployee() ' routerLink="./employee-hotel-info">Employee Hotel Info</a>
       <a mat-list-item *ngIf='isEmployee() ' routerLink="./employee-room-list">Employee Room List</a>
       <a mat-list-item *ngIf='isEmployee() ' routerLink="./employee-user-booking">Employee User Booking</a>

@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Room } from './room-information';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HotelService { 
+export class HotelService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
+  roomResponse: [];
+  roomList: [];
+  singleRoomInfo: any;
   adminHotelList() {
     return this.http.get<any>('http://localhost:8080/getHotelList');
 
@@ -24,9 +29,38 @@ export class HotelService {
     return this.http.put('http://localhost:8080/updateHotelInformation', data);
   }
 
-  
+
   addHotel(data): Observable<any> {
     console.log(data);
     return this.http.post<any>('http://localhost:8080/addHotel', data);
+  }
+
+  singleHotelData(data) {
+    console.log(data);
+    this.http.post<any>('http://localhost:8080/getRoomListForUser', data).subscribe((response) => {
+      console.log('..........user room list service hotel servie', response);
+      //this.roomResponse = response;
+      this.roomList = response.roomList;
+      console.log(this.roomList);
+      if (this.roomList != null) {
+        this.router.navigateByUrl('/vertical-header/user-room-list');
+      }
+    },
+      err => {
+        console.log(err);
+      }
+    );
+    return this.roomList;
+  }
+
+  userRoomBooking(room) {
+    console.log(room);
+    this.singleRoomInfo = room;
+    this.router.navigateByUrl('/vertical-header/user-room-booking');
+  }
+
+  addUserBooking(data): Observable<any> {
+    console.log(data);
+    return this.http.put<any>('http://localhost:8080/userRoomBooking', data);
   }
 }

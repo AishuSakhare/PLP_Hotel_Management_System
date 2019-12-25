@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-dark" *ngIf='!isLoggedIn() '>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" >
+      <li class="nav-item active" *ngIf='!isLoggedIn()'>
+        <a class="nav-link text-light" routerLink="/">Home </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav float-right" >
+      <li class="nav-item" *ngIf='!isLoggedIn()'>
+        <a class="nav-link text-light" routerLink="/login">login</a>
+      </li>
+      <li class="nav-item" *ngIf='!isLoggedIn()'>
+        <a class="nav-link text-light" routerLink="/register">register</a>
+      </li>
+    </ul>
+  </div>
+</nav>

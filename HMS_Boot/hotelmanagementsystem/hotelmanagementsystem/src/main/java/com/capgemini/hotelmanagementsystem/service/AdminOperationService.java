@@ -2,6 +2,7 @@ package com.capgemini.hotelmanagementsystem.service;
 
 import java.util.List;
 
+import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;

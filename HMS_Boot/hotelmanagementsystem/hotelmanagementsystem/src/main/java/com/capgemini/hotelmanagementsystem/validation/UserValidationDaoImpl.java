@@ -9,20 +9,21 @@ public class UserValidationDaoImpl implements UserValidation {
 
 	@Override
 	public boolean emailValidation(String email) {
-		String emailRegex = "^[a-zA-Z0-9_+&-]+(?:\\." + "[a-zA-Z0-9_+&-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
-				+ "A-Z]{2,7}$";
-
+		String emailRegex = "[a-zA-Z]{1}[a-zA-Z0-9]*[\\.]*[a-zA-Z0-9]+[@]{1}[a-zA-Z0-9]+[\\.]{1}[a-zA-Z]+";
+		boolean isValid = false;
 		pattern = Pattern.compile(emailRegex);
-		if (email == null) {
-			return false;
+		
+		if (email != null) {
+			isValid = pattern.matcher(email).matches();
 		}
-		return pattern.matcher(email).matches();
+		
+		return isValid;
 	}
 
 	@Override
 	public boolean passwordValidation(String password) {
 		// pattern = Pattern.compile("\\w+");
-		pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,10}$");
+		pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
 		matcher = pattern.matcher(password);
 		if (matcher.matches()) {
 			return true;
@@ -43,7 +44,7 @@ public class UserValidationDaoImpl implements UserValidation {
 
 	@Override
 	public boolean nameValidation(String name) {
-		pattern = Pattern.compile("\\w+\\s\\w+");
+		pattern = Pattern.compile("\\w+");
 		matcher = pattern.matcher(name);
 		if (matcher.matches()) {
 			return true;

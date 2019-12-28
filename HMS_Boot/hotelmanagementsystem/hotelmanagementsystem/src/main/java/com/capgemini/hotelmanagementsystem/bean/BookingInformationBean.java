@@ -24,6 +24,8 @@ public class BookingInformationBean {
 	@Column
 	private double bookingAmount;
 	@Column
+	private int roomId;
+	@Column
 	private String roomType;
 	@Column
 	private String roomCapacity;
@@ -47,6 +49,18 @@ public class BookingInformationBean {
 	@Column
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date checkOutDate;
+
+	
+	
+
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
 
 	public Date getCheckInDate() {
 		return checkInDate;

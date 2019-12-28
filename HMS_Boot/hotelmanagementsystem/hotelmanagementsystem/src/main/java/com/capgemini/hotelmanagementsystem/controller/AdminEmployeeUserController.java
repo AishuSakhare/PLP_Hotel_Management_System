@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.response.HotelManagementResponse;
 import com.capgemini.hotelmanagementsystem.service.AdminEmployeeUserService;
 
@@ -101,7 +101,7 @@ public class AdminEmployeeUserController {
 		return hotelManagementResponse;
 	}// End of adminUserEmployeeProfile()
 	
-	@PostMapping(path = "/updateUserProfile", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/updateUserProfile", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public HotelManagementResponse updateUserProfile(@RequestBody AdminEmployeeUserBean adminEmployeeUserBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
 		try {

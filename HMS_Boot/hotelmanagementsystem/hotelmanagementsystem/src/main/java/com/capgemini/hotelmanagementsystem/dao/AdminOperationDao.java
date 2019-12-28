@@ -2,6 +2,7 @@ package com.capgemini.hotelmanagementsystem.dao;
 
 import java.util.List;
 
+import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
@@ -9,7 +10,6 @@ import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
 public interface AdminOperationDao {
 
 	// hotel crud
-
 	public HotelInformationBean addHotel(HotelInformationBean hotelBean);
 
 	public List<HotelInformationBean> getHotelList();
@@ -21,7 +21,6 @@ public interface AdminOperationDao {
 	public boolean licenseNumberPresent(String licenseNumber);
 
 	// room crud
-
 	public RoomInformationBean addRoom(RoomInformationBean roomBean);
 
 	public boolean deleteRoomInformation(int roomId);
@@ -31,7 +30,6 @@ public interface AdminOperationDao {
 	public boolean updateRoomInformation(RoomInformationBean roomBean);
 
 	// employee crud
-
 	public EmployeeInformationBean addEmployee(EmployeeInformationBean employeeBean);
 
 	public List<EmployeeInformationBean> getEmployeeList();
@@ -39,4 +37,5 @@ public interface AdminOperationDao {
 	public boolean deleteEmployeeInformation(int employeeId);
 
 	public boolean updateEmployeeInformation(EmployeeInformationBean employeeBean);
+	
 }// end of interface

@@ -14,8 +14,8 @@ import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.dao.AdminOperationDao;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 
 @Repository
 public class AdminOperationDaoImpl implements AdminOperationDao {
@@ -264,6 +264,7 @@ public class AdminOperationDaoImpl implements AdminOperationDao {
 
 	@Override
 	public EmployeeInformationBean addEmployee(EmployeeInformationBean employeeBean) {
+		System.out.println("...........3............");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		String jpql = "from HotelInformationBean where licenceNumber =: licenseNumber";
@@ -271,6 +272,7 @@ public class AdminOperationDaoImpl implements AdminOperationDao {
 		query.setParameter("licenseNumber", employeeBean.getLicenceNumber());
 		HotelInformationBean hotelInformation = (HotelInformationBean) query.getSingleResult();
 		employeeBean.setHotelId(hotelInformation.getHotelId());
+		employeeBean.setHotelName(hotelInformation.getHotelName());
 		try {
 			transaction.begin();
 			entityManager.persist(employeeBean);
@@ -355,9 +357,9 @@ public class AdminOperationDaoImpl implements AdminOperationDao {
 				employeeBean.getEmployeeId());
 		boolean isUpdated = false;
 		if (existingEmployeeInformation != null) {
-			String name = employeeBean.getHotelName();
-			if (name != null) {
-				existingEmployeeInformation.setHotelName(name);
+			String hoteName = employeeBean.getHotelName();
+			if (hoteName != null) {
+				existingEmployeeInformation.setHotelName(hoteName);
 			}
 			String licenseNumber = employeeBean.getLicenceNumber();
 			if (licenseNumberPresent(licenseNumber) == false) {
@@ -375,7 +377,19 @@ public class AdminOperationDaoImpl implements AdminOperationDao {
 			}
 			String employeeName = employeeBean.getName();
 			if (employeeName != null) {
-				existingEmployeeInformation.setName(name);
+				existingEmployeeInformation.setName(employeeName);
+			}
+			String contactNumber = employeeBean.getContactNumber();
+			if (contactNumber != null) {
+				existingEmployeeInformation.setContactNumber(contactNumber);
+			}
+			String address = employeeBean.getAddress();
+			if (address != null) {
+				existingEmployeeInformation.setAddress(address);
+			}
+			String nationality = employeeBean.getNationality();
+			if (nationality != null) {
+				existingEmployeeInformation.setNationality(nationality);
 			}
 		}
 		try {

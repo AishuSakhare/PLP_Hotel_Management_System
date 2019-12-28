@@ -15,7 +15,7 @@ import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.BookingInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.response.HotelManagementResponse;
 import com.capgemini.hotelmanagementsystem.service.EmployeeOperationService;
 import com.capgemini.hotelmanagementsystem.service.UserOperationService;
@@ -29,7 +29,7 @@ public class UserOperationController {
 
 	@PostMapping(path = "/getRoomListForUser")
 	public HotelManagementResponse getRoomListForUser(@RequestBody HotelInformationBean hotelInformationBean) {
-		//String licenceNumber = roomInformationBean.getLicenceNumber();
+		// String licenceNumber = roomInformationBean.getLicenceNumber();
 		HotelManagementResponse response = new HotelManagementResponse();
 		try {
 			List<RoomInformationBean> roomList = userOperationService.roomList(hotelInformationBean);
@@ -52,11 +52,10 @@ public class UserOperationController {
 		}
 		return response;
 	}// end of getRoomListForUser
-	
+
 	@PutMapping(path = "/userRoomBooking", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public HotelManagementResponse userRoomBooking(
-			@RequestBody BookingInformationBean bookingInformationBean) {
-		System.out.println("......booking......"+bookingInformationBean);
+	public HotelManagementResponse userRoomBooking(@RequestBody BookingInformationBean bookingInformationBean) {
+		System.out.println("......booking......" + bookingInformationBean);
 		HotelManagementResponse response = new HotelManagementResponse();
 		BookingInformationBean bookingInformationBean1 = null;
 		try {
@@ -66,6 +65,22 @@ public class UserOperationController {
 				response.setMessage("Success");
 				response.setDescription("room booked successfully");
 
+				int roomCount = userOperationService.updateRoomCount(bookingInformationBean1.getRoomId());
+				if (roomCount != 0) {
+					response.setStatusCode(200);
+					response.setMessage("Success");
+					response.setDescription("room count decreases successfully");
+				} else if (roomCount == 0) {
+					{
+						String roomStatus = userOperationService.updateRoomStatus(bookingInformationBean1.getRoomId());
+						if (roomStatus != null) {
+							response.setStatusCode(200);
+							response.setMessage("Success");
+							response.setDescription("room status updated successfully");
+						}
+					}
+
+				}
 			} else {
 				response.setStatusCode(400);
 				response.setMessage("Failed");
@@ -80,5 +95,31 @@ public class UserOperationController {
 		return response;
 	}// end of userRoomBooking
 
-	
+	@PostMapping(path = "/calculateTotalDaysAmount")
+	public HotelManagementResponse calculateTotalDaysAmount(
+			@RequestBody BookingInformationBean bookingInformationBean) {
+		// String licenceNumber = roomInformationBean.getLicenceNumber();
+		HotelManagementResponse response = new HotelManagementResponse();
+		try {
+			double totalBill = userOperationService.calculateTotalDaysAmount(bookingInformationBean);
+			if (totalBill != 0) {
+				response.setStatusCode(200);
+				response.setMessage("Success");
+				response.setDescription("room list displayed");
+				response.setTotalBill(totalBill);
+				;
+			} else {
+				response.setStatusCode(400);
+				response.setMessage("Failed");
+				response.setDescription("room list can't be fetched");
+			}
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		return response;
+	}// end of getRoomListForUser
+
 }// end of class

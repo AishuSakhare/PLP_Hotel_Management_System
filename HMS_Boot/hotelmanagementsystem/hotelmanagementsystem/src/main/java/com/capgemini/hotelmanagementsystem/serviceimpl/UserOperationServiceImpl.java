@@ -29,4 +29,19 @@ public class UserOperationServiceImpl implements UserOperationService {
 		return userOperationDao.bookRoomUser(bookingInformationBean);
 	}
 
+	@Override
+	public double calculateTotalDaysAmount(BookingInformationBean bookingInformationBean) {
+		return userOperationDao.calculateTotalDaysAmount(bookingInformationBean);
+	}
+
+	@Override
+	public int updateRoomCount(int roomId) {
+		return userOperationDao.updateRoomCount(roomId);
+	}
+
+	@Override
+	public String updateRoomStatus(int roomId) {
+		return userOperationDao.updateRoomStatus(roomId);
+	}
+
 }

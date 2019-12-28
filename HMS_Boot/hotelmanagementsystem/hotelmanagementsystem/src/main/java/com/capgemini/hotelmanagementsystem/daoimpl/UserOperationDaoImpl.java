@@ -1,5 +1,7 @@
 package com.capgemini.hotelmanagementsystem.daoimpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,11 +14,10 @@ import org.springframework.stereotype.Repository;
 
 import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.BookingInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.dao.UserOperationDao;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 
 @Repository
 public class UserOperationDaoImpl implements UserOperationDao {
@@ -56,5 +57,79 @@ public class UserOperationDaoImpl implements UserOperationDao {
 			throw new HotelManagementSystemException("Something went wrong...cant book room now");
 		}
 		return bookingInformationBean;
+	}
+
+	@Override
+	public double calculateTotalDaysAmount(BookingInformationBean bookingInformationBean) {
+		Date checkIn = bookingInformationBean.getCheckInDate();
+		Date checkOut = bookingInformationBean.getCheckOutDate();
+		double roomAmount = bookingInformationBean.getBookingAmount();
+		double totalBill = 0;
+		double noOfDays = 0;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
+		long difference = checkOut.getTime() - checkIn.getTime();
+		noOfDays = (difference / (1000 * 60 * 60 * 24));
+		totalBill = (noOfDays+1) * roomAmount;
+
+		return totalBill;
+	}
+
+	@Override
+	public int updateRoomCount(int roomId) {
+		try {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			int updatedRoomCount = 0;
+			RoomInformationBean roomInformationBean = entityManager.find(RoomInformationBean.class, roomId);
+			boolean isUpdated = false;
+			if (roomInformationBean != null) {
+				int roomCount = roomInformationBean.getRoomCount();
+				if (roomCount != 0) {
+					 updatedRoomCount = roomCount - 1;
+					roomInformationBean.setRoomCount(updatedRoomCount);
+					transaction.begin();
+					entityManager.persist(roomInformationBean);
+					transaction.commit();
+					entityManager.close();
+					isUpdated = true;
+					System.out.println(".....................updateRoomCount"+updatedRoomCount);
+				}
+			}
+
+			// isUpdated = true;
+			return updatedRoomCount;
+		} catch (Exception e) {
+			throw new HotelManagementSystemException("Something went wrong... user can't be updated");
+		}
+
+	}
+
+	@Override
+	public String updateRoomStatus(int roomId) {
+		try {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			String updatedRoomStatus = null;
+			RoomInformationBean roomInformationBean = entityManager.find(RoomInformationBean.class, roomId);
+			boolean isUpdated = false;
+			if (roomInformationBean != null) {
+				String roomStatus = roomInformationBean.getRoomStatus();
+				if (roomStatus != null) {
+					updatedRoomStatus = "Not Available";
+					roomInformationBean.setRoomStatus(updatedRoomStatus);
+					transaction.begin();
+					entityManager.persist(roomInformationBean);
+					transaction.commit();
+					entityManager.close();
+					isUpdated = true;
+					System.out.println(".....................updatedRoomStatus"+updatedRoomStatus);
+				}
+			}
+
+			// isUpdated = true;
+			return updatedRoomStatus;
+		} catch (Exception e) {
+			throw new HotelManagementSystemException("Something went wrong... user can't be updated");
+		}
 	}
 }// end of class

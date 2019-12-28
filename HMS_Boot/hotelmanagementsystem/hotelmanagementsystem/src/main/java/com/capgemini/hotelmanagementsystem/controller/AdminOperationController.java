@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.response.HotelManagementResponse;
 import com.capgemini.hotelmanagementsystem.service.AdminOperationService;
 
@@ -84,7 +85,7 @@ public class AdminOperationController {
 		return response;
 	}
 
-	@PostMapping(path = "/updateHotelInformation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/updateHotelInformation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public HotelManagementResponse updateHotelInformation(@RequestBody HotelInformationBean hotelBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
 		try {
@@ -139,27 +140,27 @@ public class AdminOperationController {
 	@PutMapping(path = "/addRoomInformation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public HotelManagementResponse addRoomInformation(@RequestBody RoomInformationBean roomBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
-		
+
 		try {
 			String licenseNumber = roomBean.getLicenceNumber();
 			if (adminOperationsService.licenseNumberPresent(licenseNumber)) {
-			RoomInformationBean roomInformationBean = adminOperationsService.addRoom(roomBean);
-			if (roomInformationBean != null) {
-				response.setStatusCode(200);
-				response.setMessage("Success");
-				response.setDescription("Room added successfully");
-				response.setRoomInformationBean(roomInformationBean);
+				RoomInformationBean roomInformationBean = adminOperationsService.addRoom(roomBean);
+				if (roomInformationBean != null) {
+					response.setStatusCode(200);
+					response.setMessage("Success");
+					response.setDescription("Room added successfully");
+					response.setRoomInformationBean(roomInformationBean);
+				} else {
+					response.setStatusCode(400);
+					response.setDescription("Room information can't be added");
+					response.setMessage("Failed");
+				}
 			} else {
-				response.setStatusCode(400);
-				response.setDescription("Room information can't be added");
-				response.setMessage("Failed");
-			}
-			}else {
 				response.setStatusCode(400);
 				response.setDescription("This hotel is not present.. please enter existing hotel Licence");
 				response.setMessage("Failed");
 			}
-			} catch (HotelManagementSystemException e) {
+		} catch (HotelManagementSystemException e) {
 			response.setStatusCode(400);
 			response.setDescription(e.getMessage());
 			response.setMessage("Failed");
@@ -220,18 +221,26 @@ public class AdminOperationController {
 	@PutMapping(path = "/addEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HotelManagementResponse addEmployee(@RequestBody EmployeeInformationBean employeeBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
+		String licenseNumber = employeeBean.getLicenceNumber();
 		EmployeeInformationBean employeeInformationBean = null;
 		try {
-			employeeInformationBean = adminOperationsService.addEmployee(employeeBean);
-			if (employeeInformationBean != null) {
-				response.setStatusCode(200);
-				response.setMessage("Success");
-				response.setDescription("Employee added successfully");
-				response.setEmployeeBean(employeeInformationBean);
+			System.out.println("............1..............");
+			if (adminOperationsService.licenseNumberPresent(licenseNumber)) {
+				employeeInformationBean = adminOperationsService.addEmployee(employeeBean);
+				if (employeeInformationBean != null) {
+					response.setStatusCode(200);
+					response.setMessage("Success");
+					response.setDescription("Employee added successfully");
+					response.setEmployeeBean(employeeInformationBean);
+				} else {
+					response.setStatusCode(400);
+					response.setMessage("Failed");
+					response.setDescription("Unable to add employee");
+				}
 			} else {
 				response.setStatusCode(400);
+				response.setDescription("This hotel is not present.. please enter existing hotel Licence");
 				response.setMessage("Failed");
-				response.setDescription("Unable to add employee");
 			}
 		} catch (Exception e) {
 			response.setStatusCode(400);
@@ -242,7 +251,7 @@ public class AdminOperationController {
 		return response;
 	}
 
-	@PostMapping(path = "/updateRoomInforamtion")
+	@PutMapping(path = "/updateRoomInforamtion")
 	public HotelManagementResponse updateRoomInformation(@RequestBody RoomInformationBean roomBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
 		try {
@@ -315,17 +324,16 @@ public class AdminOperationController {
 		return response;
 	}
 
-	@PostMapping(path = "/updateEmployeeInformation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public HotelManagementResponse updateEmployeeInformation(
-			@RequestBody EmployeeInformationBean employeeInformationBean) {
+	@PutMapping(path = "/updateEmployeeInformation", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public HotelManagementResponse updateEmployeeInformation(@RequestBody EmployeeInformationBean employeeBean) {
 		HotelManagementResponse response = new HotelManagementResponse();
 		try {
-			boolean isUpdated = adminOperationsService.updateEmployeeInformation(employeeInformationBean);
+			boolean isUpdated = adminOperationsService.updateEmployeeInformation(employeeBean);
 			if (isUpdated) {
 				response.setStatusCode(200);
 				response.setMessage("Success");
 				response.setDescription("Employee information updated successfully");
-				response.setEmployeeBean(employeeInformationBean);
+				response.setEmployeeBean(employeeBean);
 			} else {
 				response.setStatusCode(400);
 				response.setMessage("Failed");

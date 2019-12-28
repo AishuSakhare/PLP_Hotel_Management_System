@@ -16,6 +16,7 @@ public class HotelManagementResponse {
 	private String description;
 	private String type;
 
+	private double totalBill;
 	private AdminEmployeeUserBean adminEmployeeUserBean;
 
 	private HotelInformationBean hotelInformationBean;
@@ -26,11 +27,25 @@ public class HotelManagementResponse {
 
 	private EmployeeInformationBean employeeBean;
 	private List<EmployeeInformationBean> employeeList;
+	
 	// Getter Setter Method
-
 	public int getStatusCode() {
 		return statusCode;
 	}
+
+	
+
+	public double getTotalBill() {
+		return totalBill;
+	}
+
+
+
+	public void setTotalBill(double totalBill) {
+		this.totalBill = totalBill;
+	}
+
+
 
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;

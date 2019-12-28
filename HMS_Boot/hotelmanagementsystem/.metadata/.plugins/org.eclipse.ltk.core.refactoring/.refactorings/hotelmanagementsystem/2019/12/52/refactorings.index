@@ -9,3 +9,5 @@
 1577079603800	Rename type 'ValidationDaoImpl'
 1577080089362	Rename type 'HotelManagementException'
 1577102471713	Delete element
+1577444074565	Rename local variable 'password'
+1577514440191	Rename package 'com.capgemini.hotelmanagementsystem.bean.exception'

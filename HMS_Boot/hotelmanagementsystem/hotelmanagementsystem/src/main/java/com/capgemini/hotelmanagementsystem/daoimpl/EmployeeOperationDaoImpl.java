@@ -15,8 +15,8 @@ import com.capgemini.hotelmanagementsystem.bean.BookingInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.dao.EmployeeOperationDao;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 
 @Repository
 public class EmployeeOperationDaoImpl implements EmployeeOperationDao {
@@ -42,8 +42,8 @@ public class EmployeeOperationDaoImpl implements EmployeeOperationDao {
 			query.setParameter("licenceNumber", licenceNumber);
 			hotelInfo = (HotelInformationBean) query.getSingleResult();
 		} catch (Exception e) {
-			//e.printStackTrace();
-			throw new HotelManagementSystemException("Something went wrong... hotel not found");
+			e.printStackTrace();
+			//throw new HotelManagementSystemException("Something went wrong... hotel not found");
 		}
 		return hotelInfo;
 

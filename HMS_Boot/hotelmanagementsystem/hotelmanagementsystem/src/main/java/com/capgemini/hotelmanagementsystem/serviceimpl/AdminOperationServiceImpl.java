@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.bean.EmployeeInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.HotelInformationBean;
 import com.capgemini.hotelmanagementsystem.bean.RoomInformationBean;
@@ -79,8 +80,10 @@ public class AdminOperationServiceImpl implements AdminOperationService {
 		if (userValidation.nameValidation(employeeBean.getName())
 				&& userValidation.emailValidation(employeeBean.getEmail())
 				&& userValidation.passwordValidation(employeeBean.getPassword())) {
+			System.out.println("...........2..........");
 			return adminOperationsDao.addEmployee(employeeBean);
 		}
+		System.out.println(".............false");
 		return null;
 	}
 
@@ -96,12 +99,9 @@ public class AdminOperationServiceImpl implements AdminOperationService {
 
 	@Override
 	public boolean updateEmployeeInformation(EmployeeInformationBean employeeBean) {
-		if (userValidation.nameValidation(employeeBean.getName())
-				&& userValidation.emailValidation(employeeBean.getEmail())
-				&& userValidation.passwordValidation(employeeBean.getPassword())) {
+		
 			return adminOperationsDao.updateEmployeeInformation(employeeBean);
-		}
-		return false;
+	
 	}
 
 	@Override

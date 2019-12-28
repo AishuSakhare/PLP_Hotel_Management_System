@@ -11,8 +11,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.hotelmanagementsystem.bean.AdminEmployeeUserBean;
-import com.capgemini.hotelmanagementsystem.bean.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.dao.AdminEmployeeUserDao;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 
 @Repository
 public class AdminEmployeeUserDaoImpl implements AdminEmployeeUserDao {

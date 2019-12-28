@@ -14,4 +14,10 @@ public interface UserOperationDao {
 
 	public BookingInformationBean bookRoomUser(BookingInformationBean bookingInformationBean);
 
+	public double calculateTotalDaysAmount(BookingInformationBean bookingInformationBean);
+	
+	public int updateRoomCount(int roomId);
+	
+
+	public String updateRoomStatus(int roomId);
 }// end of interface

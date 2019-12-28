@@ -39,9 +39,11 @@ public class AdminEmployeeUserServiceImpl implements AdminEmployeeUserService {
 			if (validationDao.passwordValidation(password)) {
 				return adminEmployeeUserDao.userRegister(adminEmployeeUserBean);
 			} else {
+				System.out.println("...............false1");
 				return null;
 			}
 		} else {
+			System.out.println(".................false2");
 			return null;
 		}
 	}// end of userRegister()
